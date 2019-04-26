@@ -10,33 +10,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ssi.dao.CityDAO;
-import com.ssi.dao.CustomerDAO;
-import com.ssi.entities.Customer;
+import com.ssi.dao.TransporterDAO;
+import com.ssi.entities.Transporter;
 
 @Controller
-public class CustomerController {
-
+public class TransporterController {
+	
+	@Autowired
+	private TransporterDAO transporterDAO;
+	
 	@Autowired
 	private CityDAO cityDAO;
 	
-	@Autowired
-	private CustomerDAO customerDAO;
-	
-	@RequestMapping("savecustomer")
-	public ModelAndView saveCity(@ModelAttribute("customer") Customer customer){
-		customerDAO.saveCustomer(customer);
-		ModelAndView mv=new ModelAndView("customersaveconfirm");
+	@RequestMapping("savetransporter")
+	public ModelAndView saveCity(@ModelAttribute("transporter") Transporter transporter){
+		transporterDAO.saveTransporter(transporter);
+		ModelAndView mv=new ModelAndView("transportersaveconfirm");
 		return mv;
 	}
 	
-	@RequestMapping("customerentry")
-	public ModelAndView showCustomerEntryForm(){
-		ModelAndView mv=new ModelAndView("customerentry");
-		mv.addObject("customer", new Customer());
+	@RequestMapping("transporterentry")
+	public ModelAndView showTransporterEntryForm(){
+		ModelAndView mv=new ModelAndView("transporterentry");
+		mv.addObject("transporter",new Transporter());
 		List<String> cities=cityDAO.getAllCityNames();
 		Set<String> states=cityDAO.getAllStateNames();
 		mv.addObject("cities",cities);
 		mv.addObject("states",states);
 		return mv;
+		
 	}
 }

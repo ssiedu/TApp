@@ -2,17 +2,18 @@
 <%@page isELIgnored="false" %>
 <html>
 <body>
-	<h3>Customer-Registration-Form</h3>
+	<h3>Transporter-Registration-Form</h3>
 	<hr>
-		<form:form action="savecustomer" modelAttribute="customer">
+		<form:form action="savetransporter" modelAttribute="transporter">
 		<pre>
 			Email		<form:input path="email"/>
 			Password	<form:password path="password"/>
-			CName		<form:input path="cname"/>
+			TName		<form:input path="tname"/>
 			Address		<form:input path="address"/>
 			City		<form:select path="city" items="${cities}"/>
 			State		<form:select path="state" items="${states}"/>
 			Mobile		<form:input path="mobile"/>
+			Phone		<form:input path="phone"/>
 				<input type="submit" value="Register"/>
 			</pre>
 		</form:form>
