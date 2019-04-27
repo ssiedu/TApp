@@ -21,6 +21,8 @@ public class Transporter {
 	@OneToMany(mappedBy="transporter")
 	private List<Vehicle> vehicles;
 	
+	
+	
 	public String getEmail() {
 		return email;
 	}

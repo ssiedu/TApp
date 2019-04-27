@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ssi.dao.CityDAO;
@@ -22,8 +23,29 @@ public class TransporterController {
 	@Autowired
 	private CityDAO cityDAO;
 	
+	
+	
+	@RequestMapping("tprofileupdate")
+	public ModelAndView showTransporterProfileUpdateForm(@SessionAttribute("email") String email){
+		ModelAndView mv=new ModelAndView("tprofileupdate");
+		Transporter transporter=transporterDAO.getTransporterDetails(email);
+		mv.addObject("transporter",transporter);
+		List<String> cities=cityDAO.getAllCityNames();
+		Set<String> states=cityDAO.getAllStateNames();
+		mv.addObject("cities",cities);
+		mv.addObject("states",states);
+		return mv;
+	}
+	
+	
+	@RequestMapping("savetransporterchanges")
+	public ModelAndView saveTransporterChanges(@ModelAttribute("transporter") Transporter transporter){
+		transporterDAO.saveTransporter(transporter);
+		ModelAndView mv=new ModelAndView("tprofileupdate");
+		return mv;
+	}
 	@RequestMapping("savetransporter")
-	public ModelAndView saveCity(@ModelAttribute("transporter") Transporter transporter){
+	public ModelAndView saveTransporter(@ModelAttribute("transporter") Transporter transporter){
 		transporterDAO.saveTransporter(transporter);
 		ModelAndView mv=new ModelAndView("transportersaveconfirm");
 		return mv;
@@ -38,6 +60,9 @@ public class TransporterController {
 		mv.addObject("cities",cities);
 		mv.addObject("states",states);
 		return mv;
-		
+	}
+	@RequestMapping("transporterhome")
+	public String showTransporterHome(){
+		return "transporterhome";
 	}
 }

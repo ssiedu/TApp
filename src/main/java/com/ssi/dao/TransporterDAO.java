@@ -14,6 +14,14 @@ public class TransporterDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	
+	public Transporter getTransporterDetails(String email){
+		Session session=sessionFactory.openSession();
+		Transporter transporter=session.get(Transporter.class,email);
+		session.close();
+		return transporter;
+	}
+	
 	public boolean verifyTransporter(Transporter transporter){
 		Session session=sessionFactory.openSession();
 		Transporter transporter1=session.get(Transporter.class, transporter.getEmail());
@@ -31,7 +39,7 @@ public class TransporterDAO {
 	public void saveTransporter(Transporter transporter){
 		Session session=sessionFactory.openSession();
 		Transaction transaction=session.beginTransaction();
-		session.save(transporter);
+		session.saveOrUpdate(transporter);
 		transaction.commit();
 		session.close();
 	}
