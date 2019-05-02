@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false"%>
 <html>
 <body>
-<h3>Booking-Deals-By-${email}</h3>
+<h3>Booking-Deals</h3>
 <hr>
 <table border="2">
 	<tr>
@@ -16,6 +16,6 @@
 	</c:forEach>		
 </table>
 <hr>
-<a href="transporterhome">Transporter-Home</a>
+<a href="customerhome">Customer-Home</a>
 </body>
 </html>

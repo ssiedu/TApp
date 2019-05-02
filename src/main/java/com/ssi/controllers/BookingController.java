@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +25,42 @@ public class BookingController {
 	@Autowired
 	private BookingDAO bookingDAO;
 	
+	
+	@RequestMapping("searchdatebooking")
+	public ModelAndView showDateSearchResult(@RequestParam("bdate") String bdate){
+		List<Booking> bookings=bookingDAO.getAllBookings(bdate);
+		ModelAndView mv=new ModelAndView("bookinglistview");
+		mv.addObject("bookings",bookings);
+		return mv;
+		
+	}
+	@RequestMapping("searchcitybooking")
+	public ModelAndView showCitySearchResult(@RequestParam("sourceCity") String from, @RequestParam("destCity") String to){
+		List<Booking> bookings=bookingDAO.getAllBookings(from, to);
+		ModelAndView mv=new ModelAndView("bookinglistview");
+		mv.addObject("bookings",bookings);
+		return mv;
+		
+	}
+	@RequestMapping("datesearch")
+	public String showDateSearchForm(){
+		return "datesearch";
+	}
+	@RequestMapping("citysearch")
+	public ModelAndView showSearchCityForm(){
+		ModelAndView mv=new ModelAndView("citysearch");
+		mv.addObject("booking",new Booking());
+		mv.addObject("cities",cityDAO.getAllCityNames());
+		return mv;
+	}
+	
+	@RequestMapping("viewallbookings")
+	public ModelAndView showAllBooking(){
+		List<Booking> bookings=bookingDAO.getAllBookings();
+		ModelAndView mv=new ModelAndView("bookinglistview");
+		mv.addObject("bookings",bookings);
+		return mv;
+	}
 	@RequestMapping("viewmybookings")
 	public ModelAndView showBookingForTransporter(@SessionAttribute("email") String email){
 		List<Booking> bookings=bookingDAO.getAllBookingByTransporter(email);

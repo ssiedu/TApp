@@ -21,6 +21,13 @@ public class UserController {
 	@Autowired
 	TransporterDAO transporterDAO;
 	
+	
+
+	@RequestMapping("customerhome")
+	public String showCustomerHome(){
+		return "customerhome";
+	}
+
 	@RequestMapping("verify")
 	public ModelAndView verifyUser(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("utype") String utype){
 		

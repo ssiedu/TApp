@@ -14,6 +14,7 @@ public class Vehicle {
 	private String vtype;
 	private String brand;
 	private String capacity;
+	
 	@ManyToOne
 	private Transporter transporter;
 	
